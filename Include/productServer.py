@@ -29,7 +29,7 @@ def isCommand(message: str, store: list[Product]) -> bool:
     :return:
             bool: Whether if it was a command (True) or not (False)
     """
-    validCommands = ["edit", "quit", "view"]
+    validCommands = ["edit", "view", "quit"]
 
     # Here this checks if the first character of the message is a slash and if the word after it is contained in the
     # list of valid commands above.
@@ -55,6 +55,11 @@ def viewItems(message: str, items: list[Product]):
 
     splitCommand = message.split()
     print(splitCommand)
+
+    for i in range(len(items)):
+        if items[i].name == splitCommand[1]:
+            print(items[i].toString())
+
 
 
 

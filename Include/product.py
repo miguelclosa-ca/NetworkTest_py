@@ -30,3 +30,6 @@ class Product:
 
     def set_category(self, newCategory):
         self.category = newCategory
+
+    def toString(self):
+        return self.name + " costs $" + str(self.price) + " and belongs to Category: " + self.category
