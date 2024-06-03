@@ -104,9 +104,14 @@ def editItems(message: str, items: list[Product]):
         if splitCommand[1] in validProducts and splitCommand[2] in validAttributes:
             for i in range(len(items)):
                 if splitCommand[1] == items[i].name:
+                    if splitCommand[2] == validAttributes[0]:
+                        items[i].set_name(splitCommand[3])
+                    elif splitCommand[2] == validAttributes[1]:
+                        items[i].set_category(splitCommand[3])
+                    elif splitCommand[2] == validAttributes[2]:
+                        items[i].set_price(splitCommand[3])
 
-                    # TODO find a way to read the attributes
-                    items[i].splitCommand[1] = splitCommand[3]
+            return True
 
         else:
             return False
