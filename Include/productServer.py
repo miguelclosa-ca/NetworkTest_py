@@ -77,34 +77,41 @@ def editItems(message: str, items: list[Product]):
 
     # Split the /edit command. This will make it easier to examine the command
     splitCommand = message.split()
-    print(splitCommand)
 
-    # Generate a list of the names of products in the store
-    validProducts = []
-    for i in range(len(items)):
-        validProducts.append(items[i].name)
+    # Check if the /edit command is properly formed. That is, if the length of the command is equal to 4 "words"
+    # If not, return false.
+    if len(splitCommand) == 4:
+        print(splitCommand)
 
-    print(validProducts)
-
-    # Generate a list of valid attributes to examine
-    # To do this, take the first item in the list of products and put all of its attributes into a list.
-    validAttributes = []
-    print(items[0].__dict__)
-    for key, value in items[0].__dict__.items():
-        validAttributes.append(key)
-    print(validAttributes)
-
-    # Assuming the command passes this if statement,
-    # Change the attribute's variable
-    if splitCommand[1] in validProducts and splitCommand[2] in validAttributes:
+        # Generate a list of the names of products in the store
+        validProducts = []
         for i in range(len(items)):
-            if splitCommand[1] == items[i].name:
+            validProducts.append(items[i].name)
 
-                # TODO find a way to read the attributes
-                items[i].splitCommand[1] = splitCommand[3]
+        print(validProducts)
 
+        # Generate a list of valid attributes to examine
+        # To do this, take the first item in the list of products and put all of its attributes into a list.
+        validAttributes = []
+        print(items[0].__dict__)
+        for key, value in items[0].__dict__.items():
+            validAttributes.append(key)
+        print(validAttributes)
+
+
+        # Assuming the command passes this if statement,
+        # Change the attribute's variable
+        if splitCommand[1] in validProducts and splitCommand[2] in validAttributes:
+            for i in range(len(items)):
+                if splitCommand[1] == items[i].name:
+
+                    # TODO find a way to read the attributes
+                    items[i].splitCommand[1] = splitCommand[3]
+
+        else:
+            return False
     else:
-        return False
+        print("no")
 
 
 
