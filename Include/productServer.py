@@ -56,9 +56,17 @@ def viewItems(message: str, items: list[Product]):
     splitCommand = message.split()
     print(splitCommand)
 
-    for i in range(len(items)):
-        if items[i].name == splitCommand[1]:
-            print(items[i].toString())
+    if len(splitCommand) == 2:
+
+        if splitCommand[1] == "all":
+            for i in range(len(items)):
+                print(items[i].toString())
+        else:
+
+
+            for i in range(len(items)):
+                if items[i].name == splitCommand[1]:
+                    print(items[i].toString())
 
 
 
