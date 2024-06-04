@@ -34,8 +34,6 @@ def isCommand(message: str, store: list[Product]) -> bool:
     # Here this checks if the first character of the message is a slash and if the word after it is contained in the
     # list of valid commands above.
 
-    # TODO: there is definitely a way to find the longest value in a list in a short number of lines,
-    #  add that value into the if statement
     if message[0] == "/" and message[1:5] in validCommands:
         if message[1:5] == validCommands[0]:
             editItems(message, store)
@@ -129,7 +127,12 @@ def editItems(message: str, items: list[Product]):
         print("no")
 
 def initializeServer():
+    """
+    Create a server using an IP address and port.
+    :return: The server
+    """
 
+    # Define a host, the IP address, and the port
     host = socket.gethostbyname(socket.gethostname())
     HOST = "192.168.0.110"
     PORT = 9996
@@ -137,7 +140,7 @@ def initializeServer():
     # Define a server
     initServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-
+    # Bind the host and the port
     initServer.bind((HOST, PORT))
 
     return initServer
@@ -147,9 +150,28 @@ def main():
     # Create the list of products in the store
     productsInStore = initalizeProducts()
 
+    # Create a server
     server = initializeServer()
-
     server.listen(5)
+
+    print("Start of Log: ")
+    while True:
+
+        comm_socket, address = server.accept()
+        print("Connected to: {} " .format(address))
+
+        # Receive a message from the client, decode into utf-8
+        newMessage = comm_socket.recv(1024).decode("utf-8")
+
+        # Show message and show who sent the message in the server:
+        print("{} - {}" .format(address, newMessage))
+
+        comm_socket.send("Received".encode("utf-8"))
+
+
+
+
+
 
     # while True:
     #
