@@ -112,34 +112,52 @@ def editItems(message: str, items: list[Product]):
         if splitCommand[1] in validProducts and splitCommand[2] in validAttributes:
             for i in range(len(items)):
                 if splitCommand[1] == items[i].name:
+
                     if splitCommand[2] == validAttributes[0]:
-                        items[i].set_name(splitCommand[3])
+                        items[i].set_price(splitCommand[3])
                     elif splitCommand[2] == validAttributes[1]:
                         items[i].set_category(splitCommand[3])
                     elif splitCommand[2] == validAttributes[2]:
-                        items[i].set_price(splitCommand[3])
+                        items[i].set_name(splitCommand[3])
 
             return True
 
         else:
             return False
     else:
+        # remove later
         print("no")
 
+def initializeServer():
+
+    host = socket.gethostbyname(socket.gethostname())
+    HOST = "192.168.0.110"
+    PORT = 9996
+
+    # Define a server
+    initServer = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 
+    initServer.bind((HOST, PORT))
 
+    return initServer
 
 
 def main():
     # Create the list of products in the store
     productsInStore = initalizeProducts()
 
-    while True:
-        str = input("Enter command: ")
+    server = initializeServer()
 
-        if not isCommand(str, productsInStore):
-            break
+    server.listen(5)
+
+    # while True:
+    #
+    #     print("Will be moved to client later")
+    #     str = input("Enter command: ")
+    #
+    #     if not isCommand(str, productsInStore):
+    #         break
 
 
 main()
